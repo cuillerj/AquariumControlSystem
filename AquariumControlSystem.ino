@@ -12,22 +12,22 @@ monitor and control over Internet via Java Server
 
 a station identifier has previously been stored in ESP8266 eeprom
 
-during the download phase a 3.3v Serial/USB link must be connected to the ESP8266 module (Gnd,Tx,Rx)
+for the download phase a 3.3v Serial/USB link must be connected to the ESP8266 module (Gnd,Tx,Rx)
 */
 // include PIN and Wifi configuration
-// #define debugOn true  // uncomment  comment this define to swith on off the debug mode on serial link
+// #define debugOn true  // uncomment or comment this #define to swith on off the debug mode on serial link
 #include <C:\Users\jean\Documents\ESP8266\librairies\OneWire\OneWire.h>
 #include <C:\Users\jean\Documents\ESP8266\librairies\OneWire\OneWire.cpp>
 // include schedule and configuration - must be adapted to your configuration
-#include <C:\Users\jean\Documents\ESP8266\AquariumControlSystem\configPower1.h>
-#include <C:\Users\jean\Documents\ESP8266\AquariumControlSystem\schedullPower1.h>
+#include <C:\Users\jean\Documents\ESP8266\librairies\PowerTimer\configPower1030.h>
+#include <C:\Users\jean\Documents\ESP8266\librairies\PowerTimer\schedullPower1030.h>
 #define maxSendDataLenght 250   // maximum lenght of data to be sent to server
 String ver = "AquariumControlSystem-V";
 uint8_t vers = 0x02;
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <EEPROM.h>
-#include <Time.h>
+#include <TimeLib.h>          // Time.h replaced by TimeLib.h to deal with IDE 1.6.9
 #include <stdio.h>
 #include <string.h>
 #include <C:\Users\jean\Documents\Arduino\libraries\Esp8266JC\Esp8266ReadEeprom.h>
@@ -103,7 +103,7 @@ byte type_DS;
 boolean tempSensor = false;  // temperatur sensor available or not
 OneWire  ds(DS1820_PIN);  // on pin gpio04 (a 4.7K resistor is necessary)
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(38400);    // 
   EEPROM.begin(200);
   setTime(00, 00, 0, 01, 01, 2000);
   AffTime();
